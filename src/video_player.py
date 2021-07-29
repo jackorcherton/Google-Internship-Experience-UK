@@ -30,7 +30,7 @@ class VideoPlayer:
         videoDetails = self._video_library.get_video(video_id) #Attempts to fetch video info
         if videoDetails: #if the ID is valid
             if self.currentlyPlaying != None: #If something is playing
-                print("Stopping video:", self.currentlyPlaying.title)
+                self.stop_video()
             print("Playing video:", videoDetails.title) #start new video
             self.currentlyPlaying = videoDetails #save in currently playing
         else:
@@ -38,8 +38,11 @@ class VideoPlayer:
 
     def stop_video(self):
         """Stops the current video."""
-
-        print("stop_video needs implementation")
+        if self.currentlyPlaying == None:
+            print("Cannot stop video: No video is currently playing")
+        else:
+            print("Stopping video:",self.currentlyPlaying.title)
+            self.currentlyPlaying = None
 
     def play_random_video(self):
         """Plays a random video from the video library."""
