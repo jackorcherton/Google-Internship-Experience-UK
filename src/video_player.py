@@ -6,8 +6,10 @@ from .video_library import VideoLibrary
 class VideoPlayer:
     """A class used to represent a Video Player."""
 
-    def __init__(self):
+    def __init__(self, currentlyPlaying = None):
         self._video_library = VideoLibrary()
+        self.currentlyPlaying = currentlyPlaying
+        
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -25,7 +27,14 @@ class VideoPlayer:
         Args:
             video_id: The video_id to be played.
         """
-        print("play_video needs implementation")
+        videoDetails = self._video_library.get_video(video_id) #Attempts to fetch video info
+        if videoDetails: #if the ID is valid
+            if self.currentlyPlaying != None: #If something is playing
+                print("Stopping video:", self.currentlyPlaying.title)
+            print("Playing video:", videoDetails.title) #start new video
+            self.currentlyPlaying = videoDetails #save in currently playing
+        else:
+            print("Cannot play video: Video does not exist")
 
     def stop_video(self):
         """Stops the current video."""
