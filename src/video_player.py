@@ -1,7 +1,7 @@
 """A video player class."""
 
 from .video_library import VideoLibrary
-
+from random import choice
 
 class VideoPlayer:
     """A class used to represent a Video Player."""
@@ -46,8 +46,10 @@ class VideoPlayer:
 
     def play_random_video(self):
         """Plays a random video from the video library."""
-
-        print("play_random_video needs implementation")
+        videoIDchoices = [] 
+        for video in self._video_library.get_all_videos():
+            videoIDchoices.append(video.video_id) #store all video ID in tuple
+        self.play_video(choice(videoIDchoices)) #pick a random one
 
     def pause_video(self):
         """Pauses the current video."""
