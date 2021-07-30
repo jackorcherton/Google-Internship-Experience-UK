@@ -75,8 +75,12 @@ class VideoPlayer:
 
     def show_playing(self):
         """Displays video currently playing."""
-
-        print("show_playing needs implementation")
+        if self.currentlyPlaying == None:
+            print("No video is currently playing")
+        elif self.videoStatus == "pause":
+            print(f'Currently playing: {self.currentlyPlaying} - PAUSED')
+        else:
+            print("Currently playing:",self.currentlyPlaying)
 
     def create_playlist(self, playlist_name):
         """Creates a playlist with a given name.
