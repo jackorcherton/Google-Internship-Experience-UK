@@ -104,23 +104,19 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
-        actualPlaylistNames = list(self.playlists.keys())
-        position = 0
-        for listName in actualPlaylistNames:
-            if listName.lower() == playlist_name.lower():
-                official_playlist_name = actualPlaylistNames[position]
-                videoTitle = self._video_library.get_video(video_id)
-                if videoTitle:
-                    #valid video ID
-                    if video_id in self.playlists[official_playlist_name]:
-                        print(f"Cannot add video to {playlist_name}: Video already added")
-                    else:
-                        print(f"Added video to {playlist_name}: {videoTitle.title}")
-                        self.playlists[official_playlist_name].append(video_id)
+        validPlaylistName = self.findPlaylistName(playlist_name)
+        if validPlaylistName:
+            videoTitle = self._video_library.get_video(video_id)
+            if videoTitle:
+                #valid video ID
+                if video_id in self.playlists[validPlaylistName]:
+                    print(f"Cannot add video to {playlist_name}: Video already added")
                 else:
-                    print(f"Cannot add video to {playlist_name}: Video does not exist")
-                return
-            position += 1
+                    print(f"Added video to {playlist_name}: {videoTitle.title}")
+                    self.playlists[validPlaylistName].append(video_id)
+            else:
+                print(f"Cannot add video to {playlist_name}: Video does not exist")
+            return
         print(f"Cannot add video to {playlist_name}: Playlist does not exist")
 
     def show_all_playlists(self):
@@ -138,7 +134,18 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("show_playlist needs implementation")
+        validPlaylistName = self.findPlaylistName(playlist_name)
+        if validPlaylistName:
+            print(f"Showing playlist: {playlist_name}")
+            videos = self.playlists[validPlaylistName]
+            if videos == []:
+                print("No videos here yet")
+            else:
+                #print([self._video_library.get_video(x) for x in videos])
+                for videoInfo in videos:
+                    print(self._video_library.get_video(videoInfo))
+        else:
+            print("Cannot show playlist another_playlist: Playlist does not exist")
 
     def remove_from_playlist(self, playlist_name, video_id):
         """Removes a video to a playlist with a given name.
@@ -197,3 +204,13 @@ class VideoPlayer:
             video_id: The video_id to be allowed again.
         """
         print("allow_video needs implementation")
+
+
+    def findPlaylistName(self, playlistInput):
+        """Given a playlist name, checks validity and returns correct playlist name"""
+        actualPlaylistNames = list(self.playlists.keys())
+        position = 0
+        for listName in actualPlaylistNames:
+            if listName.lower() == playlistInput.lower():
+                return actualPlaylistNames[position]
+            position += 1
