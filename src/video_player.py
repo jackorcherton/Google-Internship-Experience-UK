@@ -10,7 +10,7 @@ class VideoPlayer:
         self._video_library = VideoLibrary()
         self.currentlyPlaying = currentlyPlaying #Stores details of currently playing video
         self.videoStatus = None #stores if video has been paused
-        self.playlists = []
+        self.playlists = {}
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -95,7 +95,7 @@ class VideoPlayer:
             print("Cannot create playlist: A playlist with the same name already exists")
         else:
             print("Successfully created new playlist:", playlist_name)
-            self.playlists.append(playlist_name)
+            self.playlists[playlist_name] = []
 
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
