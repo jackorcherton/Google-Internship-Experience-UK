@@ -3,6 +3,9 @@ This repository is my attempt at the Internship Experience 2021 Coding Challenge
 
 The challenge was created by [Google](https://www.google.com/), and we were tasked at making a command-line version of [YouTube](https://www.youtube.com/) — to view the detailed instructions see codeing-challenge-instructions.pdf.
 
+## Certificate of Completion
+[Click here to view my certificate of completion](https://www.brightnetwork.co.uk/certificates/internship-experience-uk-on-de_fku7qkqhico4ms/)
+
 ## Running the Code
 To run the code you must be running Python > 3.7, the code has no dependencies, and to run it — head to the root of this repository and type ` python3 -m src.run`.
 
